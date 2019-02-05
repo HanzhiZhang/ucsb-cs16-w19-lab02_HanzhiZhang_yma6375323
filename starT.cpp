@@ -1,4 +1,4 @@
-// starC.cpp   A demonstration of ASCII Art printing C characters
+// starT.cpp   A demonstration of ASCII Art printing T characters
 
 #include <iostream>
 #include <cstdlib>
@@ -6,35 +6,36 @@
 using namespace std;
 
 void assertEquals(string expected, string actual, string message);
-string starC(int width, int height);
+string starT(int width, int height);
 void runTests(void);
 
-// Write starC per specifictions in the lab writeup
+// Write starT per specifictions in the lab writeup
 // so that internal tests pass, and submit.cs system tests pass
 
-
-string starC(int width, int height){
+string starT(int width, int height)
+{
   string result="";
-  if ((width<2) || (height < 3))
+  if(width%2!=1 or width<3 or height<2){
     return result;
-  for (int col=1; col<=width; col++) {
+  }
+  for (int col=0; col<width; col++) {
     result += "*";
   }
   result += "\n"; 
-  // followed by width-1 spaces, then a \n
-  for (int row=1; row<=height-2; row++) {
-    result += "*";
-    for (int col=2; col<=width; col++) {
-      result += " ";
+  for(int row=1;row<height;row++){
+    int c=(width-1)/2;
+    for(int a=0;a<c;a++){
+      result+=" ";
     }
-    result += "\n";
+    result+="*";
+    for(int b=0;b<c;b++){
+      result+=" ";
+    }
+    result+="\n";
   }
-  for (int col=1; col<=width; col++) {
-    result += "*";
-   // TODO: remove this line, replace with correct code
- }
- result += "\n";
- return result;
+  
+   
+  return result;
 }
 
 // Test-Driven Development; check expected results against actual
@@ -45,32 +46,32 @@ void runTests(void) {
   // are separated only by whitespace (space, tab, newline), they 
   // automatically get concatenated into a single string literal
 
-  string starC34Expected = 
+  string starT34Expected = 
     "***\n"
-    "*  \n"
-    "*  \n"
-    "***\n";
+    " * \n"
+    " * \n"
+    " * \n" ;
   
-  assertEquals(starC34Expected,starC(3,4),"starC(3,4)");
+  assertEquals(starT34Expected,starT(3,4),"starT(3,4)");
 
-  string starC53Expected =     
+  string starT53Expected =     
     "*****\n"
-    "*    \n"
-    "*****\n";
-
+    "  *  \n"
+    "  *  \n" ;
   
-  assertEquals(starC53Expected,starC(5,3),"starC(5,3)");
+  assertEquals(starT53Expected,starT(5,3),"starT(5,3)");
 
-  assertEquals("",starC(2,1),"starC(2,1)");
-  assertEquals("",starC(2,2),"starC(2,2)");
-
-  string starC23Expected =     
-    "**\n"
-    "* \n"
-    "**\n";
+  string starT72Expected =     
+    "*******\n"
+    "   *   \n";
   
-  assertEquals(starC23Expected,starC(2,3),"starC(2,3)");
- }
+  assertEquals(starT72Expected,starT(7,2),"starT(7,2)");
+
+  assertEquals("",starT(1,2),"starT(1,2)");
+  assertEquals("",starT(5,1),"starT(5,1)");
+  assertEquals("",starT(4,2),"starT(4,2)");
+  assertEquals("",starT(6,2),"starT(6,2)");
+}
 
 // Test harness
 
@@ -80,12 +81,14 @@ void assertEquals(string expected, string actual, string message="") {
   } else {
     cout << "   FAILED: " << message << endl << "   Expected:[\n" << expected << "] actual = [\n" << actual << "]\n" << endl;
   }
- }
+}
 
 
 // Main function
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[])
+{
+
   if (argc!=3) {
     cerr << "Usage: " << argv[0] << " width height" << endl;
     exit(1);
@@ -100,7 +103,6 @@ int main(int argc, char *argv[]){
     exit(0);
   }
 
-  cout << starC(width,height);
-
+  cout << starT(width,height);
   return 0;
- }
+}
